@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prison RP - Prison Management Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="screen active">
+        <div class="welcome-container">
+            <h1>Welcome to Prison RP</h1>
+            <p>Enter your first and last name</p>
+            <div class="welcome-form">
+                <input type="text" id="firstName" placeholder="First Name" maxlength="20" required>
+                <input type="text" id="lastName" placeholder="Last Name" maxlength="20" required>
+                <input type="text" id="accountCode" placeholder="Account Code" maxlength="30" required>
+                <button class="btn-primary" id="startGameBtn" onclick="startGame()" disabled>Clock In</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboardScreen" class="screen">
+        <div class="dashboard-header">
+            <h1>PRISON RP</h1>
+            <div class="player-info">
+                <span id="playerName"></span>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="statistics-container">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPrisoners">0</div>
+                <div class="stat-label">TOTAL PRISONERS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="normalCells">0</div>
+                <div class="stat-label">NORMAL CELLS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="mediumCells">0</div>
+                <div class="stat-label">MEDIUM CELLS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="securedCells">0</div>
+                <div class="stat-label">SECURED CELLS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="escapedCount">0</div>
+                <div class="stat-label">ESCAPED</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="releasedCount">0</div>
+                <div class="stat-label">RELEASED</div>
+            </div>
+        </div>
+
+        <!-- Add Prisoner Button -->
+        <div class="dashboard-action">
+            <button class="btn-add-prisoner" onclick="showAddPrisonerForm()">＋ Add Prisoner</button>
+        </div>
+
+        <div class="dashboard-action report-action-wrap">
+            <button class="btn-redbutton" onclick="showRedButtonReport()">redbutton report</button>
+        </div>
+
+        <!-- Prisoner List Controls -->
+        <div class="prisoner-controls">
+            <input type="text" id="searchInput" placeholder="Search prisoners..." onkeyup="filterPrisoners()">
+            
+            <select id="cellFilter" onchange="filterPrisoners()">
+                <option value="">All Cells</option>
+                <option value="Normal">Normal Cell</option>
+                <option value="Medium">Medium Cell</option>
+                <option value="Secured">Secured Cell</option>
+            </select>
+
+            <select id="statusFilter" onchange="filterPrisoners()">
+                <option value="">All Statuses</option>
+                <option value="IN CELL">In Cell</option>
+                <option value="HUNGRY">Hungry</option>
+                <option value="ESCAPED">Escaped</option>
+                <option value="SEARCHING">Searching</option>
+                <option value="CAPTURED">Captured</option>
+                <option value="RELEASED">Released</option>
+            </select>
+
+            <select id="sortBy" onchange="filterPrisoners()">
+                <option value="">Sort By</option>
+                <option value="age">Age (Low to High)</option>
+                <option value="age-desc">Age (High to Low)</option>
+                <option value="security">Security Level (Low to High)</option>
+                <option value="security-desc">Security Level (High to Low)</option>
+            </select>
+        </div>
+
+        <!-- Prisoners List -->
+        <div id="prisonersList" class="prisoners-container">
+            <!-- Prisoner cards will be inserted here -->
+        </div>
+
+        <!-- No prisoners message -->
+        <div id="noPrisonersMessage" class="no-prisoners-message">
+            <p>No prisoners added yet. Click the "＋ Add Prisoner" button to get started.</p>
+        </div>
+    </div>
+
+    <!-- Add Prisoner Form Modal -->
+    <div id="addPrisonerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addPrisonerModal')">&times;</span>
+            <h2>Add Prisoner</h2>
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="prisonerFirstName" placeholder="First Name" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="prisonerLastName" placeholder="Last Name" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="prisonerAge" placeholder="Age" min="18" max="100">
+            </div>
+            <div class="form-group">
+                <label>Reason for Imprisonment</label>
+                <textarea id="prisonerReason" placeholder="Reason for imprisonment" rows="3"></textarea>
+            </div>
+            <button class="btn-primary" onclick="proceedToCellSelection()">Continue</button>
+        </div>
+    </div>
+
+    <!-- Cell Selection Modal -->
+    <div id="cellSelectionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cellSelectionModal')">&times;</span>
+            <h2>Select Cell Type</h2>
+            <div class="cell-selection-container">
+                <div class="cell-card" onclick="selectCell('Normal')">
+                    <div class="cell-visualization normal-cell"></div>
+                    <h3>NORMAL CELL</h3>
+                    <ul class="cell-features">
+                        <li>Concrete walls</li>
+                        <li>Small window</li>
+                        <li>Strong metal door</li>
+                        <li>Standard security</li>
+                    </ul>
+                </div>
+
+                <div class="cell-card" onclick="selectCell('Medium')">
+                    <div class="cell-visualization medium-cell"></div>
+                    <h3>MEDIUM CELL</h3>
+                    <ul class="cell-features">
+                        <li>Concrete walls</li>
+                        <li>No window</li>
+                        <li>Very strong metal door</li>
+                        <li>Located underground</li>
+                        <li>Higher security</li>
+                    </ul>
+                </div>
+
+                <div class="cell-card" onclick="selectCell('Secured')">
+                    <div class="cell-visualization secured-cell"></div>
+                    <h3>SECURED CELL</h3>
+                    <ul class="cell-features">
+                        <li>Located underground</li>
+                        <li>No windows</li>
+                        <li>Concrete walls</li>
+                        <li>Heavy metal security door</li>
+                        <li>Security cameras in every corner</li>
+                        <li>Very high security</li>
+                        <li>Extremely difficult to escape</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Prisoner Modal -->
+    <div id="managePrisonerModal" class="modal">
+        <div class="modal-content manage-prisoner-content">
+            <span class="close" onclick="closeModal('managePrisonerModal')">&times;</span>
+            <div class="prisoner-details">
+                <h2 id="managePrisonerName"></h2>
+                <div class="prisoner-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Age:</span>
+                        <span class="info-value" id="managePrisonerAge"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Cell:</span>
+                        <span class="info-value" id="managePrisonerCell"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value status-badge" id="managePrisonerStatus"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Hunger Level:</span>
+                        <span class="info-value" id="managePrisonerHunger"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Security Level:</span>
+                        <span class="info-value" id="managePrisonerSecurity"></span>
+                    </div>
+                </div>
+
+                <div class="prisoner-reason">
+                    <strong>Reason for Imprisonment:</strong>
+                    <p id="managePrisonerReason"></p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-action btn-feed" onclick="givePrisonerFood()">Give Food</button>
+                    <button class="btn-action btn-inspect" onclick="inspectCell()">Inspect Cell</button>
+                    <button class="btn-action btn-change-cell" onclick="showCellChangeOptions()">Change Cell</button>
+                    <button class="btn-action btn-helicopter" id="helicopterBtn" style="display:none;" onclick="sendHelicopters()">Send Helicopters</button>
+                    <button class="btn-action btn-release" onclick="releasePrisoner()">Release Prisoner</button>
+                    <button class="btn-action btn-execute" onclick="showExecuteConfirmation()">Execute</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cellChangeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cellChangeModal')">&times;</span>
+            <h2>Change Cell</h2>
+            <div class="cell-selection-container">
+                <div class="cell-card" onclick="movePrisonerToCell('Normal')">
+                    <div class="cell-visualization normal-cell"></div>
+                    <h3>NORMAL CELL</h3>
+                </div>
+                <div class="cell-card" onclick="movePrisonerToCell('Medium')">
+                    <div class="cell-visualization medium-cell"></div>
+                    <h3>MEDIUM CELL</h3>
+                </div>
+                <div class="cell-card" onclick="movePrisonerToCell('Secured')">
+                    <div class="cell-visualization secured-cell"></div>
+                    <h3>SECURED CELL</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Redbutton Report Modal -->
+    <div id="redButtonReportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('redButtonReportModal')">&times;</span>
+            <h2>Redbutton report</h2>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="reportName" placeholder="Enter name" maxlength="50">
+            </div>
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="reportAge" placeholder="Enter age" min="1" max="120">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" id="reportAddress" placeholder="Enter address" maxlength="100">
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" id="reportPhone" placeholder="Enter phone number" maxlength="25">
+            </div>
+            <div class="form-group">
+                <label>Platform</label>
+                <select id="reportPlatform">
+                    <option value="">Select a platform</option>
+                    <option value="Discord">Discord</option>
+                    <option value="Snapchat">Snapchat</option>
+                    <option value="YouTube">YouTube</option>
+                    <option value="TikTok">TikTok</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>User on platform</label>
+                <input type="text" id="reportPlatformUser" placeholder="Enter username or handle" maxlength="50">
+            </div>
+            <p class="report-helper">If the personal details are unknown, leave them blank and use the fictional trace option after the report is created.</p>
+            <button class="btn-primary" onclick="submitReportDetails()">Confirm</button>
+        </div>
+    </div>
+
+    <div id="reportReasonModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('reportReasonModal')">&times;</span>
+            <h2>Reason</h2>
+            <div class="form-group">
+                <label>Describe the issue</label>
+                <textarea id="reportReasonInput" rows="5" placeholder="Write the reason here..."></textarea>
+            </div>
+            <button class="btn-primary" onclick="submitReportReason()">Enter</button>
+        </div>
+    </div>
+
+    <div id="reportActionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('reportActionModal')">&times;</span>
+            <h2>Report summary</h2>
+            <div id="reportActionResult" class="report-action-result"></div>
+            <div class="report-action-buttons">
+                <button class="btn-primary" onclick="dispatchEmergencyServices()">Send emergency services to the address</button>
+                <button class="btn-secondary" onclick="runPrivacyCheck()">Find likely location (fictional trace)</button>
+            </div>
+            <div id="reportDecisionWrap" class="report-decision-wrap" style="display:none;">
+                <p id="reportDecisionQuestion">Do you want to submit this report to the safety desk?</p>
+                <div class="confirmation-buttons report-confirmation-buttons">
+                    <button class="btn-primary" onclick="handleReportDecision(true)">Yes</button>
+                    <button class="btn-secondary" onclick="handleReportDecision(false)">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Escape Warning Modal -->
+    <div id="escapeWarningModal" class="modal escape-warning">
+        <div class="escape-warning-content">
+            <div class="escape-animation">
+                <h1>⚠ PRISONER HAS RUN AWAY ⚠</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modals -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content confirmation-content">
+            <h2 id="confirmationTitle"></h2>
+            <p id="confirmationMessage"></p>
+            <div class="confirmation-buttons">
+                <button class="btn-primary" id="confirmBtn" onclick="confirmAction()">Confirm</button>
+                <button class="btn-secondary" onclick="cancelAction()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notificationContainer" class="notification-container">
+        <!-- Notifications will be added here -->
+    </div>
+
+    <!-- Search Operation Modal -->
+    <div id="searchOperationModal" class="modal">
+        <div class="modal-content">
+            <h2>SEARCH OPERATION ACTIVE</h2>
+            <div class="search-animation">
+                <div class="helicopter-icon">🚁</div>
+                <p>Helicopters are searching for the escaped prisoner...</p>
+                <div class="search-progress">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1057 @@
+/* ===== GENERAL STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ===== SCREENS ===== */
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===== WELCOME SCREEN ===== */
+#welcomeScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.welcome-container {
+    background: white;
+    padding: 60px 40px;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.welcome-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.welcome-container > p {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.welcome-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.welcome-form input {
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.welcome-form input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.welcome-form input::placeholder {
+    color: #999;
+}
+
+.welcome-form input:invalid:not(:placeholder-shown) {
+    border-color: #f44336;
+}
+
+/* ===== DASHBOARD HEADER ===== */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header h1 {
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+}
+
+.player-info {
+    font-size: 1.1em;
+    color: #666;
+    font-weight: 500;
+}
+
+/* ===== STATISTICS ===== */
+.statistics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.stat-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.85em;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    background: linear-gradient(135deg, #ccc 0%, #999 100%);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.btn-primary:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+.btn-add-prisoner {
+    background: white;
+    color: #667eea;
+    border: 3px solid #667eea;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 1.3em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    display: block;
+}
+
+.btn-add-prisoner:hover {
+    background: #667eea;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-redbutton {
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+    color: white;
+    border: none;
+    padding: 18px 28px;
+    border-radius: 12px;
+    font-size: 1.1em;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(211, 47, 47, 0.25);
+}
+
+.btn-redbutton:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 20px rgba(211, 47, 47, 0.35);
+}
+
+.btn-action {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    color: white;
+}
+
+.btn-feed {
+    background: #4CAF50;
+}
+
+.btn-feed:hover {
+    background: #45a049;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-inspect {
+    background: #2196F3;
+}
+
+.btn-inspect:hover {
+    background: #0b7dda;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.btn-change-cell {
+    background: #9C27B0;
+}
+
+.btn-change-cell:hover {
+    background: #7b1fa2;
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+}
+
+.btn-helicopter {
+    background: #FF9800;
+}
+
+.btn-helicopter:hover {
+    background: #e68900;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+
+.btn-release {
+    background: #2196F3;
+}
+
+.btn-release:hover {
+    background: #0b7dda;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.btn-execute {
+    background: #f44336;
+}
+
+.btn-execute:hover {
+    background: #da190b;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.btn-manage-prisoner {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-manage-prisoner:hover {
+    background: #764ba2;
+    transform: translateY(-2px);
+}
+
+/* ===== MODALS ===== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* ===== FORMS ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ===== CELL SELECTION ===== */
+.cell-selection-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.cell-card {
+    background: #f9f9f9;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cell-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+    transform: translateY(-5px);
+    background: white;
+}
+
+.cell-visualization {
+    height: 150px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.normal-cell {
+    background: linear-gradient(135deg, #8B8680 0%, #A89F96 100%);
+}
+
+.medium-cell {
+    background: linear-gradient(135deg, #5D5C5A 0%, #3E3C3A 100%);
+}
+
+.secured-cell {
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    position: relative;
+}
+
+.secured-cell::before,
+.secured-cell::after {
+    content: '📹';
+    position: absolute;
+    font-size: 1.5em;
+}
+
+.secured-cell::before {
+    top: 10px;
+    left: 10px;
+}
+
+.secured-cell::after {
+    bottom: 10px;
+    right: 10px;
+}
+
+.cell-card h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.cell-features {
+    list-style: none;
+    text-align: left;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.cell-features li {
+    padding: 5px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.cell-features li:last-child {
+    border-bottom: none;
+}
+
+/* ===== PRISONER LIST ===== */
+.prisoner-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.prisoner-controls input,
+.prisoner-controls select {
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+}
+
+.prisoner-controls input:focus,
+.prisoner-controls select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.dashboard-action {
+    margin: 30px 0;
+}
+
+.report-action-wrap {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.report-action-result {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 18px;
+    margin: 20px 0;
+    line-height: 1.7;
+    color: #333;
+}
+
+.report-action-result p {
+    margin-bottom: 10px;
+}
+
+.report-helper {
+    margin: -10px 0 18px;
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.5;
+}
+
+.report-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.report-decision-wrap {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.report-decision-wrap p {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.05em;
+}
+
+.report-confirmation-buttons {
+    justify-content: center;
+}
+
+.prisoners-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.prisoner-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.prisoner-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    border-color: #667eea;
+}
+
+.prisoner-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 15px;
+}
+
+.prisoner-name {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #333;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-IN-CELL {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-HUNGRY {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.status-ESCAPED {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.status-SEARCHING {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.status-CAPTURED {
+    background: #f3e5f5;
+    color: #6a1b9a;
+}
+
+.status-RELEASED {
+    background: #e0f2f1;
+    color: #00695c;
+}
+
+.prisoner-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-row strong {
+    color: #667eea;
+}
+
+.info-row span {
+    color: #666;
+}
+
+.hunger-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.hunger-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50 0%, #FFC107 50%, #f44336 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.prisoner-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-manage-prisoner {
+    flex: 1;
+}
+
+.no-prisoners-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 1.1em;
+}
+
+/* ===== MANAGE PRISONER MODAL ===== */
+.manage-prisoner-content {
+    max-width: 700px;
+}
+
+.prisoner-details h2 {
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.prisoner-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #667eea;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    color: #333;
+    font-size: 1.1em;
+}
+
+.prisoner-reason {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #667eea;
+}
+
+.prisoner-reason strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.prisoner-reason p {
+    color: #666;
+    line-height: 1.5;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.btn-action {
+    padding: 12px 16px;
+    font-size: 0.95em;
+}
+
+/* ===== CONFIRMATION MODAL ===== */
+.confirmation-content {
+    text-align: center;
+}
+
+.confirmation-content h2 {
+    margin-bottom: 15px;
+}
+
+.confirmation-content p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.confirmation-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.confirmation-buttons button {
+    padding: 12px 30px;
+}
+
+/* ===== ESCAPE WARNING ===== */
+.escape-warning {
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+}
+
+.escape-warning.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.escape-warning-content {
+    text-align: center;
+}
+
+.escape-animation h1 {
+    color: #f44336;
+    font-size: 3em;
+    animation: blink 0.5s infinite alternate;
+    text-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+}
+
+@keyframes blink {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+}
+
+/* ===== NOTIFICATIONS ===== */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3000;
+    max-width: 400px;
+}
+
+.notification {
+    background: white;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideInRight 0.3s ease;
+    border-left: 4px solid;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification.success {
+    border-left-color: #4CAF50;
+}
+
+.notification.success::before {
+    content: '✓ ';
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.notification.error {
+    border-left-color: #f44336;
+}
+
+.notification.error::before {
+    content: '✕ ';
+    color: #f44336;
+    font-weight: bold;
+}
+
+.notification.warning {
+    border-left-color: #ff9800;
+}
+
+.notification.warning::before {
+    content: '⚠ ';
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.notification.info {
+    border-left-color: #2196F3;
+}
+
+.notification.info::before {
+    content: 'ℹ ';
+    color: #2196F3;
+    font-weight: bold;
+}
+
+/* ===== SEARCH OPERATION ===== */
+.search-animation {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.helicopter-icon {
+    font-size: 4em;
+    animation: float 2s ease-in-out infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.search-progress {
+    margin-top: 30px;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    animation: loading 2s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% {
+        width: 0%;
+    }
+    50% {
+        width: 100%;
+    }
+    100% {
+        width: 0%;
+    }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .statistics-container {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px 10px;
+    }
+
+    .stat-number {
+        font-size: 2em;
+    }
+
+    .prisoners-container {
+        grid-template-columns: 1fr;
+    }
+
+    .prisoner-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .cell-selection-container {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        margin: 20px;
+        max-height: none;
+    }
+
+    .welcome-container {
+        padding: 40px 30px;
+    }
+
+    .prisoner-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .notification-container {
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header h1 {
+        font-size: 1.5em;
+    }
+
+    .btn-add-prisoner {
+        padding: 15px 30px;
+        font-size: 1.1em;
+    }
+
+    .stat-number {
+        font-size: 1.5em;
+    }
+
+    .stat-label {
+        font-size: 0.7em;
+    }
+
+    .prisoner-card {
+        padding: 15px;
+    }
+
+    .prisoner-name {
+        font-size: 1.1em;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .welcome-container h1 {
+        font-size: 1.8em;
+    }
+}
